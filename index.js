@@ -132,8 +132,6 @@ app.use(
   })
 );
 
-
-https://teller-zeta.vercel.app/
 const MONGO_URL =
   "mongodb+srv://ondg:ondg@cluster0.8rlvalv.mongodb.net/bankteller?retryWrites=true&w=majority";
 
