@@ -13,6 +13,7 @@ const TransactionSchema = mongoose.Schema(
     success: { type: Boolean },
     idNumber: String,
   },
+
   { timestamps: true }
 );
 

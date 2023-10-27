@@ -61,9 +61,7 @@ const deposit = async (req, res) => {
         branch: branch,
         accountType: accountType,
         idType: idType,
-        success: success,
         idNumber: idNumber,
-        status: "success",
         status: "success",
       });
       res.json({
@@ -86,7 +84,6 @@ const withdraw = async (req, res) => {
     branch,
     accountType,
     idType,
-    success,
     idNumber,
   } = req.body;
   try {
@@ -121,7 +118,6 @@ const withdraw = async (req, res) => {
         branch: branch,
         accountType: accountType,
         idType: idType,
-        success: success,
         idNumber: idNumber,
         status: "success",
       });
