@@ -2,16 +2,23 @@ const mongoose = require("mongoose");
 
 const TransactionSchema = mongoose.Schema(
   {
-    accountNumber: { type: String },
-    name: { type: String },
-    contact: { type: String },
-    branch: { type: String },
-    transactionType: { type: String },
-    accountType: { type: String },
-    amount: { type: Number },
-    idType: { type: String },
-    success: { type: Boolean },
-    idNumber: String,
+    accountNumber: { type: String, required: true },
+    name: { type: String, required: true },
+    contact: { type: String, required: true },
+    branch: { type: String, required: true },
+    transactionType: { type: String, required: true },
+    accountType: { type: String, required: true },
+    amount: { type: Number, required: true },
+    idType: { type: String, required: true },
+    success: { type: String },
+    idNumber: { type: String, required: true },
+    idVerified: { type: String, required: true },
+    accountName: { type: String, required: true },
+    paymentType: { type: String, required: true },
+    createdBy: {
+      type: mongoose.Types.ObjectId,
+      ref: "Teller",
+    },
   },
 
   { timestamps: true }

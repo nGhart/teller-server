@@ -31,6 +31,9 @@ const deposit = async (req, res) => {
     idType,
     success,
     idNumber,
+    accountName,
+    paymentType,
+    idVerified,
   } = req.body;
   try {
     // Convert the amount value to a number
@@ -42,7 +45,12 @@ const deposit = async (req, res) => {
     if (!owner) {
       return res.json({ msg: "No business found" });
     }
-
+    if (
+      owner.name != req.body.accountName ||
+      owner.accountType != req.body.accountType
+    ) {
+      return res.json({ msg: "Account details incorrect" });
+    }
     // Calculate the new balance
     const newBalance = owner.balance + amountToAdd;
 
@@ -63,6 +71,9 @@ const deposit = async (req, res) => {
         idType: idType,
         idNumber: idNumber,
         status: "success",
+        accountName: accountName,
+        paymentType: paymentType,
+        idVerified: idVerified,
       });
       res.json({
         msg: `An amount of ${amountToAdd} has been credited to your account`,
@@ -85,6 +96,9 @@ const withdraw = async (req, res) => {
     accountType,
     idType,
     idNumber,
+    accountName,
+    paymentType,
+    idVerified,
   } = req.body;
   try {
     // Convert the amount value to a number
@@ -96,7 +110,12 @@ const withdraw = async (req, res) => {
     if (!owner) {
       return res.json({ msg: "Account not found" });
     }
-
+    if (
+      owner.name != req.body.accountName ||
+      owner.accountType != req.body.accountType
+    ) {
+      return res.json({ msg: "Account details incorrect" });
+    }
     if (owner.balance <= amountToAdd) {
       return res.status(500).json({ msg: "Insufficient funds" });
     }
@@ -120,6 +139,9 @@ const withdraw = async (req, res) => {
         idType: idType,
         idNumber: idNumber,
         status: "success",
+        accountName: accountName,
+        paymentType: paymentType,
+        idVerified: idVerified,
       });
       return res.json({
         msg: `An amount of ${amountToAdd} has been debited to your account`,

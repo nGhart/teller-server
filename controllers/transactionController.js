@@ -1,17 +1,17 @@
 const Transaction = require("../models/transactionModel");
 
-const createTransaction = async (req, res) => {
-  const data = req.body;
-  try {
-    let newTransaction = await Transaction.create(data);
-    if (!newTransaction) {
-      return res.status(401).json({ success: false });
-    }
-    res.json(newTransaction);
-  } catch (err) {
-    res.status(500).send({ message: "Error in saving the transaction" });
-  }
-};
+// const createTransaction = async (req, res) => {
+//   const data = req.body;
+//   try {
+//     let newTransaction = await Transaction.create(data);
+//     if (!newTransaction) {
+//       return res.status(401).json({ success: false });
+//     }
+//     res.json(newTransaction);
+//   } catch (err) {
+//     res.status(500).send({ message: "Error in saving the transaction" });
+//   }
+// };
 
 const getAllTransactions = async (req, res) => {
   try {
@@ -47,7 +47,7 @@ const getSingleAccount = async (req, res) => {
 };
 
 module.exports = {
-  createTransaction,
+  //createTransaction,
   getAllTransactions,
   getSingleAccount,
 };
