@@ -45,14 +45,11 @@ const cors = require("cors");
 const app = express();
 app.use(
   cors({
-    origin: [
-      '*',
-      'https://teller-zeta.vercel.app',
-      //'https://recordsfrontend.vercel.app',
-    ],
+    origin: ["*", "https://teller-zeta.vercel.app"],
     credentials: true,
   })
 );
+//app.use(cors());
 
 const MONGO_URL =
   "mongodb+srv://ondg:ondg@cluster0.8rlvalv.mongodb.net/bankteller?retryWrites=true&w=majority";

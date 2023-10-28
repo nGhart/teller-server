@@ -43,7 +43,7 @@ const deposit = async (req, res) => {
     const owner = await Account.findOne({ accNumber: accNumber });
 
     if (!owner) {
-      return res.json({ msg: "No business found" });
+      return res.json({ msg: "Account not found" });
     }
     if (
       owner.name != req.body.accountName ||
@@ -75,8 +75,11 @@ const deposit = async (req, res) => {
         paymentType: paymentType,
         idVerified: idVerified,
       });
+      // res.json({
+      //   msg: `An amount of ${amountToAdd} has been credited to your account`,
+      // });
       res.json({
-        msg: `An amount of ${amountToAdd} has been credited to your account`,
+        msg: `Amount has been credited to the account`,
       });
     }
   } catch (err) {
@@ -117,7 +120,7 @@ const withdraw = async (req, res) => {
       return res.json({ msg: "Account details incorrect" });
     }
     if (owner.balance <= amountToAdd) {
-      return res.status(500).json({ msg: "Insufficient funds" });
+      return res.json({ msg: "Insufficient funds" });
     }
     // Calculate the new balance
     const newBalance = owner.balance - amountToAdd;
@@ -143,8 +146,11 @@ const withdraw = async (req, res) => {
         paymentType: paymentType,
         idVerified: idVerified,
       });
+      // return res.json({
+      //   msg: `An amount of ${amountToAdd} has been debited to your account`,
+      // });
       return res.json({
-        msg: `An amount of ${amountToAdd} has been debited to your account`,
+        msg: `Amount has been debited to the account`,
       });
     }
     res.json(updatedOwner);
