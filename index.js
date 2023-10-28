@@ -12,7 +12,19 @@ const app = express();
 //     credentials: true,
 //   })
 // );
-app.use(cors());
+// app.use(cors());
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*"); // Allow requests from any origin (you can specify specific origins instead of '*')
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT,PATCH, DELETE, OPTIONS"
+  ); // Allow the specified HTTP methods
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  ); // Allow the specified headers
+  next();
+});
 
 const MONGO_URL =
   "mongodb+srv://ondg:ondg@cluster0.8rlvalv.mongodb.net/bankteller?retryWrites=true&w=majority";
