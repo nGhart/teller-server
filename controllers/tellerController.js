@@ -44,6 +44,7 @@ const updateTeller = async (req, res) => {
     res.json({ msg: "Password Updated", searchTeller });
   } catch (error) {}
 };
+
 const deleteTeller = async (req, res) => {
   const { staffId } = req.body;
   try {
