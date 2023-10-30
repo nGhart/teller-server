@@ -47,7 +47,7 @@ const updateTeller = async (req, res) => {
 
 const deleteTeller = async (req, res) => {
   const staffId = req.body;
-  console.log(staffId);
+  console.log(req.body);
   // try {
   //   console.log(staffId);
   //   const teller = await Teller.findOne({ staffId: staffId });
