@@ -7,10 +7,10 @@ const addTeller = async (req, res) => {
   const hashedPassword = bcrypt.hashSync(password, 8);
   try {
     const isAdminAccount = (await Teller.countDocuments()) === 0;
-    let teller = await Teller.findOne({ staffId });
-    if (teller) {
-      return res.json({ msg: "Staff ID already in use" });
-    }
+    //let teller = await Teller.findOne({ staffId });
+    // if (teller) {
+    //   return res.json({ msg: "Staff ID already in use" });
+    // }
     let newTeller = await Teller.create({
       username,
       staffId,
@@ -23,7 +23,7 @@ const addTeller = async (req, res) => {
     }
     res.json(newTeller);
   } catch (err) {
-    res.json({ msg: err.message });
+    res.status(500).json({ msg: err.message });
   }
 };
 

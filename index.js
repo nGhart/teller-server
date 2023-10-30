@@ -49,7 +49,6 @@ const transactionRoute = require("./router/transactionRoute");
 //ROUTES FOR ACCOUNT OWNER [CREATE,DEPOSIT,WITHDRAW]
 
 //changes
-//app.use("/owner", accountRoutes);
 app.use("/account", accountRoutes);
 
 // ROUTE FOR TELLER [ADD TELLER]
