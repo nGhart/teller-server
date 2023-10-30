@@ -8,7 +8,7 @@ const addTeller = async (req, res) => {
   try {
     const isAdminAccount = (await Teller.countDocuments()) === 0;
 
-    let teller = await Teller.find().where("staffId").equals(staffId);
+    let teller = await Teller.findOne().where("staffId").equals(staffId);
     if (teller) {
       return res.json({ msg: "Staff ID already in use" });
     }
