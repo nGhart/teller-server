@@ -26,7 +26,24 @@ const addTeller = async (req, res) => {
     res.status(500).json({ msg: err.message });
   }
 };
-
+const updateTeller = async (req, res) => {
+  const { staffId, password } = req.body;
+  const hashedNewPassword = bcrypt.hashSync(password, 8);
+  try {
+    const teller = await Teller.findOne({ staffId });
+    if (!teller) {
+      return res.json({ msg: "Staff ID does not exist" });
+    }
+    let searchTeller = await Teller.findOneAndUpdate(
+      teller,
+      {
+        password: hashedNewPassword,
+      },
+      { new: true }
+    );
+    res.json({ msg: "Password Updated", searchTeller });
+  } catch (error) {}
+};
 const deleteTeller = async (req, res) => {
   const { staffId } = req.body;
   try {
@@ -67,4 +84,5 @@ module.exports = {
   addTeller,
   deleteTeller,
   login,
+  updateTeller,
 };
