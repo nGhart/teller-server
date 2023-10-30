@@ -34,7 +34,9 @@ const login = async (req, res) => {
     if (!comparePassword)
       return res.status(401).json({ msg: "Invalid credentials" });
     //res.status(200).json({ msg: "Log in successful", teller });
-    res.status(200).json({ msg: "Log in successful", user: teller._id });
+    res
+      .status(200)
+      .json({ msg: "Log in successful", user: teller._id, role: teller.role });
   } catch (error) {
     res.status(401).json({ msg: error.message });
   }
