@@ -20,9 +20,9 @@ const addTeller = async (req, res) => {
       role: isAdminAccount ? "admin" : "user",
     });
     if (!newTeller) {
-      return res.json("User creation failed");
+      return res.json({ msg: "User creation failed" });
     }
-    res.json(newTeller);
+    res.json({ newTeller, msg: "New user added" });
   } catch (err) {
     res.status(500).json({ msg: err.message });
   }
