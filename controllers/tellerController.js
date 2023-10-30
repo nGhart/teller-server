@@ -49,8 +49,9 @@ const deleteTeller = async (req, res) => {
   // const staffId = req.body;
   try {
     const staffId = req.body;
+    console.log(staffId);
     const teller = await Teller.findOne(staffId);
-    console.log(teller);
+    //console.log(teller);
     if (!teller) {
       return res.json({ msg: "Staff ID does not exist" });
     }
