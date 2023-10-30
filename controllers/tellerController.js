@@ -46,23 +46,23 @@ const updateTeller = async (req, res) => {
 };
 
 const deleteTeller = async (req, res) => {
-  const { staffId } = req.body;
+  const staffId = req.body;
   console.log(staffId);
-  try {
-    console.log(staffId);
-    const teller = await Teller.findOne({ staffId: staffId });
-    //console.log(teller);
-    if (!teller) {
-      return res.json({ msg: "Staff ID does not exist" });
-    }
-    const deleted = await Teller.deleteOne({ _id: teller._id });
-    if (!deleted) {
-      throw Error("Failed to delete User");
-    }
-    res.json({ msg: "User deleted", deleted });
-  } catch (error) {
-    console.log(error.message);
-  }
+  // try {
+  //   console.log(staffId);
+  //   const teller = await Teller.findOne({ staffId: staffId });
+  //   //console.log(teller);
+  //   if (!teller) {
+  //     return res.json({ msg: "Staff ID does not exist" });
+  //   }
+  //   const deleted = await Teller.deleteOne({ _id: teller._id });
+  //   if (!deleted) {
+  //     throw Error("Failed to delete User");
+  //   }
+  //   res.json({ msg: "User deleted", deleted });
+  // } catch (error) {
+  //   console.log(error.message);
+  // }
 };
 
 const login = async (req, res) => {
