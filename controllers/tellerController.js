@@ -46,10 +46,10 @@ const updateTeller = async (req, res) => {
 };
 
 const deleteTeller = async (req, res) => {
-  // const { staffId } = req.body;
-  const staffId = req.body;
+  // const staffId = req.body;
   try {
-    const teller = await Teller.findOne({ staffId: staffId });
+    const { staffId } = req.body;
+    const teller = await Teller.findOne({ staffId });
     if (!teller) {
       return res.json({ msg: "Staff ID does not exist" });
     }
