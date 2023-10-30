@@ -26,10 +26,6 @@ const TellerSchema = mongoose.Schema(
       enum: ["admin", "user"],
       default: "user",
     },
-    createdBy: {
-      type: mongoose.Types.ObjectId,
-      ref: "Teller",
-    },
   },
   { timestamps: true }
 );
