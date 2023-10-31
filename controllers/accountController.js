@@ -75,7 +75,7 @@ const deposit = async (req, res) => {
         accountName: accountName,
         paymentType: paymentType,
         idVerified: idVerified,
-        createdBy: createdBy,
+        staffId: createdBy,
       });
       // res.json({
       //   msg: `An amount of ${amountToAdd} has been credited to your account`,
@@ -148,7 +148,7 @@ const withdraw = async (req, res) => {
         accountName: accountName,
         paymentType: paymentType,
         idVerified: idVerified,
-        createdBy: createdBy,
+        staffId: createdBy,
       });
       // return res.json({
       //   msg: `An amount of ${amountToAdd} has been debited to your account`,
