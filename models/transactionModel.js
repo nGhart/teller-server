@@ -15,10 +15,11 @@ const TransactionSchema = mongoose.Schema(
     idVerified: { type: String, required: true },
     accountName: { type: String, required: true },
     paymentType: { type: String, required: true },
-    createdBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "teller",
-    },
+    staffId: { type: String, required: true },
+    // createdBy: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "teller",
+    // },
   },
 
   { timestamps: true }
