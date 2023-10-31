@@ -9,6 +9,6 @@ const {
 // router.post("/", createTransaction);
 router.get("/", getAllTransactions);
 router.post("/getAccount", getSingleAccount);
-router.get("/stafftrans", getTransactionsByStaff);
+router.post("/stafftrans", getTransactionsByStaff);
 
 module.exports = router;
