@@ -24,7 +24,7 @@ const getTransactionsByStaff = async (req, res) => {
 };
 
 const getSingleAccount = async (req, res) => {
-  const { accountNumber, transactionType } = req.body;
+  const { accountNumber, transactionType, data } = req.body;
   try {
     const query = {};
 
@@ -36,7 +36,9 @@ const getSingleAccount = async (req, res) => {
       query.transactionType = transactionType;
     }
 
-    const singleAccount = await Transaction.find(query);
+    const singleAccount = await Transaction.find(query)
+      .where("staffId")
+      .equals(data);
     if (singleAccount.length === 0) {
       return res.json({ msg: "No matching records found" });
     }
