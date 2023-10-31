@@ -132,12 +132,11 @@ const login = async (req, res) => {
   try {
     //find user exists
     const teller = await Teller.findOne({ staffId });
-    if (!teller) return res.status(404).json({ msg: "User not found" });
+    if (!teller) return res.json({ msg: "User not found" });
 
     //if user found compare password entered to password in database
     const comparePassword = bcrypt.compareSync(password, teller.password);
-    if (!comparePassword)
-      return res.status(401).json({ msg: "Invalid credentials" });
+    if (!comparePassword) return res.json({ msg: "Invalid credentials" });
     //log user in and send data to frontend
     res.status(200).json({
       msg: "Log in successful",
