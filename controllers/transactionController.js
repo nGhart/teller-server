@@ -36,9 +36,8 @@ const getSingleAccount = async (req, res) => {
       query.transactionType = transactionType;
     }
 
-    const singleAccount = await Transaction.find(query)
-      .where("staffId")
-      .equals(data);
+    const singleAccount = await Transaction.find(query);
+
     if (singleAccount.length === 0) {
       return res.json({ msg: "No matching records found" });
     }
