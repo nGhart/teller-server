@@ -9,6 +9,19 @@ const getAllTransactions = async (req, res) => {
   }
 };
 
+const getTransactionsByStaff = async (req, res) => {
+  const { data } = req.body;
+  try {
+    let transactions = await Transaction.find({ staffId: data });
+    if (!transactions) {
+      return res.status(404).json({ msg: "Staff ID not found" });
+    }
+    return res.json(transactions);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 const getSingleAccount = async (req, res) => {
   const { accountNumber, transactionType } = req.body;
   try {
@@ -34,7 +47,7 @@ const getSingleAccount = async (req, res) => {
 };
 
 module.exports = {
-  //createTransaction,
   getAllTransactions,
+  getTransactionsByStaff,
   getSingleAccount,
 };
