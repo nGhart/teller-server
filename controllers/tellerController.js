@@ -50,13 +50,16 @@ const deleteTeller = async (req, res) => {
   const { staffId } = req.body;
   console.log(req.body);
   try {
-    let checkStaffId = await Teller.deleteOne()
-      .where("staffId")
-      .equals(staffId);
+    let checkStaffId = await Teller.findOne().where("staffId").equals(staffId);
     if (!checkStaffId) {
       return res.status(404).json({ msg: "Staff ID not found" });
     }
-    res.json({ msg: "Deleted successfully" });
+    let deleted = await Teller.deleteOne().where("staffId").equals(staffId);
+    if (deleted) {
+      return res.json({ msg: "Deleted successfully" });
+    } else {
+      return res.json({ msg: "Failed" });
+    }
   } catch (err) {
     console.log(err);
   }
