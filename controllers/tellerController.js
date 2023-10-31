@@ -48,7 +48,7 @@ const updateTeller = async (req, res) => {
 
 const changePassword = async (req, res) => {
   const { staffId, password, newPassword } = req.body;
-  const hashedNewPassword = bcrypt.hashSync(password, 8);
+  const hashedNewPassword = bcrypt.hashSync(newPassword, 8);
   try {
     const teller = await Teller.findOne({ staffId });
     if (!teller) {
