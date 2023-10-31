@@ -11,7 +11,7 @@ const getAllTransactions = async (req, res) => {
 
 const getTransactionsByStaff = async (req, res) => {
   const { data } = req.body;
-  console.log(req.body);
+  console.log("req.body", req.body);
   try {
     let transactions = await Transaction.find().where("staffId").equals(data);
     if (!transactions) {
@@ -34,6 +34,9 @@ const getSingleAccount = async (req, res) => {
 
     if (transactionType) {
       query.transactionType = transactionType;
+    }
+    if (data) {
+      query.staffId = data;
     }
 
     const singleAccount = await Transaction.find(query);
