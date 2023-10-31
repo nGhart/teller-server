@@ -46,6 +46,30 @@ const updateTeller = async (req, res) => {
   } catch (error) {}
 };
 
+const changePassword = async (req, res) => {
+  const { staffId, password, newPassword } = req.body;
+  const hashedNewPassword = bcrypt.hashSync(password, 8);
+  try {
+    const teller = await Teller.findOne({ staffId });
+    if (!teller) {
+      return res.json({ msg: "Staff ID does not exist" });
+    }
+    const comparePassword = bcrypt.compareSync(password, teller.password);
+    if (!comparePassword) {
+      return res.status(401).json({ msg: "Invalid credentials" });
+    }
+
+    let changedTeller = await Teller.findOneAndUpdate(
+      teller,
+      {
+        password: hashedNewPassword,
+      },
+      { new: true }
+    );
+    res.json({ msg: "Password Updated", changedTeller });
+  } catch (error) {}
+};
+
 const deleteTeller = async (req, res) => {
   const { staffId } = req.body;
   console.log(req.body);
