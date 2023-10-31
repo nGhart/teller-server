@@ -129,6 +129,7 @@ const login = async (req, res) => {
 };
 module.exports = {
   addTeller,
+  changePassword,
   deleteTeller,
   login,
   updateTeller,
