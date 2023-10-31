@@ -8,7 +8,7 @@ const {
 
 router.post("/", addTeller);
 router.post("/login", login);
-router.delete("/delete", deleteTeller);
+router.post("/delete", deleteTeller);
 router.patch("/update", updateTeller);
 
 module.exports = router;
