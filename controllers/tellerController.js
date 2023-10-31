@@ -52,7 +52,7 @@ const deleteTeller = async (req, res) => {
   try {
     let checkStaffId = await Teller.findOne().where("staffId").equals(staffId);
     if (!checkStaffId) {
-      return res.status(404).json({ msg: "Staff ID not found" });
+      return res.json({ msg: "Staff ID not found" });
     }
     let deleted = await Teller.deleteOne().where("staffId").equals(staffId);
     if (deleted) {
