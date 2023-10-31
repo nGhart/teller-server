@@ -48,7 +48,23 @@ const updateTeller = async (req, res) => {
 
 const deleteTeller = async (req, res) => {
   const { staffId } = req.body;
-  console.log(req);
+  console.log(req.body);
+  try {
+    let checkStaffId = await Teller.findOne().where("staffId").equals(staffId);
+    if (!checkStaffId) {
+      return res.status(404).json({ msg: "Staff ID not found" });
+    }
+    let removeTeller = await Teller.deleteOne()
+      .where("staffId")
+      .equals(staffId);
+    if (!removeTeller) {
+      return res.json({ msg: "Failed to delete user" });
+    }
+    res.json({ msg: "Deleted successfully" });
+  } catch (err) {
+    console.log(err);
+  }
+
   // try {
   //   console.log(staffId);
   //   const teller = await Teller.findOne({ staffId: staffId });
@@ -77,14 +93,12 @@ const login = async (req, res) => {
     if (!comparePassword)
       return res.status(401).json({ msg: "Invalid credentials" });
     //res.status(200).json({ msg: "Log in successful", teller });
-    res
-      .status(200)
-      .json({
-        msg: "Log in successful",
-        user: teller.role,
-        staffId: teller.staffId,
-        teller,
-      });
+    res.status(200).json({
+      msg: "Log in successful",
+      user: teller.role,
+      staffId: teller.staffId,
+      teller,
+    });
     // .json({ msg: "Log in successful", user: teller._id, role: teller.role });
   } catch (error) {
     res.status(401).json({ msg: error.message });
