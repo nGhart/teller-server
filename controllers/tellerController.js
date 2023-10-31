@@ -56,7 +56,7 @@ const changePassword = async (req, res) => {
     }
     const comparePassword = bcrypt.compareSync(password, teller.password);
     if (!comparePassword) {
-      return res.status(401).json({ msg: "Invalid credentials" });
+      return res.json({ msg: "Invalid credentials" });
     }
 
     let changedTeller = await Teller.findOneAndUpdate(
