@@ -16,10 +16,6 @@ const TransactionSchema = mongoose.Schema(
     accountName: { type: String, required: true },
     paymentType: { type: String, required: true },
     staffId: { type: String, required: true },
-    // createdBy: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: "teller",
-    // },
   },
 
   { timestamps: true }

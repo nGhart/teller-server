@@ -1,25 +1,27 @@
 const Account = require("../models/accountModel");
 const transactionModel = require("../models/transactionModel");
 
-const getOwners = async (req, res) => {
-  let owners = await Account.find({});
-  res.json(owners);
+//fetch all account
+const getAccounts = async (req, res) => {
+  let accounts = await Account.find({});
+  res.json(accounts);
 };
 
-const addOwner = async (req, res) => {
+//create new account
+const addAccount = async (req, res) => {
   try {
     let data = req.body;
-    let newOwner = await Account.create(data);
-    if (!newOwner) {
+    let newAccount = await Account.create(data);
+    if (!newAccount) {
       throw Error("Failed to create owner");
     }
-    res.json(newOwner);
+    res.json(newAccount);
   } catch (err) {
     res.json({ msg: err.message });
   }
 };
 
-// ADD ADD TO BALANCE
+// make a deposit
 const deposit = async (req, res) => {
   const {
     accNumber,
@@ -40,12 +42,13 @@ const deposit = async (req, res) => {
     // Convert the amount value to a number
     const amountToAdd = Number(amount);
 
-    // Find the existing business document
+    // Find if account exists
     const owner = await Account.findOne({ accNumber: accNumber });
 
     if (!owner) {
       return res.json({ msg: "Account not found" });
     }
+    //check if entered details match the account
     if (
       owner.name != req.body.accountName ||
       owner.accountType != req.body.accountType
@@ -60,6 +63,8 @@ const deposit = async (req, res) => {
       { accNumber: accNumber },
       { $set: { balance: newBalance } }
     );
+
+    //add transaction to database
     if (updatedOwner) {
       let depositRecord = transactionModel.create({
         accountNumber: accNumber,
@@ -77,9 +82,7 @@ const deposit = async (req, res) => {
         idVerified: idVerified,
         staffId: createdBy,
       });
-      // res.json({
-      //   msg: `An amount of ${amountToAdd} has been credited to your account`,
-      // });
+
       res.json({
         msg: `Amount has been credited to the account`,
       });
@@ -89,8 +92,7 @@ const deposit = async (req, res) => {
   }
 };
 
-// withdraw
-
+// withdraw from an account
 const withdraw = async (req, res) => {
   const {
     accNumber,
@@ -107,21 +109,24 @@ const withdraw = async (req, res) => {
     createdBy,
   } = req.body;
   try {
-    // Convert the amount value to a number
+    // Convert the amount to a number
     const amountToAdd = Number(amount);
 
-    // Find the existing business document
+    // Find if account exists
     const owner = await Account.findOne({ accNumber: accNumber });
 
     if (!owner) {
       return res.json({ msg: "Account not found" });
     }
+    //check if entered details match account details
     if (
       owner.name != req.body.accountName ||
       owner.accountType != req.body.accountType
     ) {
       return res.json({ msg: "Account details incorrect" });
     }
+
+    //check if account balance is sufficient to process the withdrawal
     if (owner.balance <= amountToAdd) {
       return res.json({ msg: "Insufficient funds" });
     }
@@ -133,6 +138,7 @@ const withdraw = async (req, res) => {
       { accNumber: accNumber },
       { $set: { balance: newBalance } }
     );
+    //add transaction to database
     if (updatedOwner) {
       let depositRecord = transactionModel.create({
         accountNumber: accNumber,
@@ -150,9 +156,6 @@ const withdraw = async (req, res) => {
         idVerified: idVerified,
         staffId: createdBy,
       });
-      // return res.json({
-      //   msg: `An amount of ${amountToAdd} has been debited to your account`,
-      // });
       return res.json({
         msg: `Amount has been debited to the account`,
       });
@@ -165,7 +168,7 @@ const withdraw = async (req, res) => {
 
 module.exports = {
   deposit,
-  getOwners,
+  getAccounts,
   withdraw,
-  addOwner,
+  addAccount,
 };

@@ -1,5 +1,6 @@
 const Transaction = require("../models/transactionModel");
 
+//get every transaction in database
 const getAllTransactions = async (req, res) => {
   try {
     let transactions = await Transaction.find({});
@@ -9,9 +10,10 @@ const getAllTransactions = async (req, res) => {
   }
 };
 
+//get transaction by staff id
 const getTransactionsByStaff = async (req, res) => {
   const { data } = req.body;
-  console.log("req.body", req.body);
+  //find if any transaction by the teller and return
   try {
     let transactions = await Transaction.find().where("staffId").equals(data);
     if (!transactions) {
@@ -23,9 +25,12 @@ const getTransactionsByStaff = async (req, res) => {
   }
 };
 
+//filter transactions by type, account number and staff ID
 const getSingleAccount = async (req, res) => {
+  //get data from form
   const { accountNumber, transactionType, staffId } = req.body;
-  console.log(req.body);
+
+  //get filter values
   try {
     const query = {};
 
@@ -40,6 +45,7 @@ const getSingleAccount = async (req, res) => {
       query.staffId = staffId;
     }
 
+    //find data that match the query and return
     const singleAccount = await Transaction.find(query);
 
     if (singleAccount.length === 0) {

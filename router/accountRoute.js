@@ -1,13 +1,13 @@
 const router = require("express").Router();
 const {
   deposit,
-  getOwners,
+  getAccounts,
   withdraw,
-  addOwner,
+  addAccount,
 } = require("../controllers/accountController");
 
-router.get("/", getOwners);
-router.post("/addNew", addOwner);
+router.get("/", getAccounts);
+router.post("/addNew", addAccount);
 router.post("/deposit", deposit);
 router.post("/withdraw", withdraw);
 

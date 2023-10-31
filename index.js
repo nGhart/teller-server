@@ -11,15 +11,18 @@ const app = express();
 // );
 // app.use(cors());
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*"); // Allow requests from any origin (you can specify specific origins instead of '*')
+  //specify origins
+  res.header("Access-Control-Allow-Origin", "*");
+  //specify methods
   res.header(
     "Access-Control-Allow-Methods",
     "GET, POST, PUT,PATCH, DELETE, OPTIONS"
-  ); // Allow the specified HTTP methods
+  );
+  //specify headers
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  ); // Allow the specified headers
+  );
   next();
 });
 
@@ -43,14 +46,9 @@ const accountRoutes = require("./router/accountRoute");
 const tellerRoutes = require("./router/tellerRoute");
 const transactionRoute = require("./router/transactionRoute");
 
-//ROUTES FOR ACCOUNT OWNER [CREATE,DEPOSIT,WITHDRAW]
-
-//changes
+//ROUTES
 app.use("/account", accountRoutes);
-
-// ROUTE FOR TELLER [ADD TELLER]
 app.use("/teller", tellerRoutes);
-// ROUTE TO INPUT TRANSACTION
 app.use("/transaction", transactionRoute);
 
 app.listen(1997, () => {
