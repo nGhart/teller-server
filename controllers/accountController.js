@@ -82,7 +82,9 @@ const deposit = async (req, res) => {
         idVerified: idVerified,
         staffId: createdBy,
       });
-
+      if (!accountType || !idType || !idVerified || !paymentType) {
+        res.json({ msg: "Fill in all fields" });
+      }
       res.json({
         msg: `Amount has been credited to the account`,
       });
@@ -156,6 +158,9 @@ const withdraw = async (req, res) => {
         idVerified: idVerified,
         staffId: createdBy,
       });
+      if (!accountType || !idType || !idVerified || !paymentType) {
+        res.json({ msg: "Fill in all fields" });
+      }
       return res.json({
         msg: `Amount has been debited to the account`,
       });
