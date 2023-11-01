@@ -1,11 +1,16 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-
 const app = express();
+const cookieParser = require("cookie-parser");
+
+require("dotenv").config();
+const { MONGO_URL, PORT } = process.env;
+
 // app.use(
 //   cors({
 //     origin: ["*", "https://teller-zeta.vercel.app/"],
+// methods: ["GET", "POST", "PUT", "DELETE"],
 //     credentials: true,
 //   })
 // );
@@ -26,19 +31,22 @@ app.use((req, res, next) => {
   next();
 });
 
-const MONGO_URL =
-  "mongodb+srv://ondg:ondg@cluster0.8rlvalv.mongodb.net/bankteller?retryWrites=true&w=majority";
+//change
+// const MONGO_URL =
+//   "mongodb+srv://ondg:ondg@cluster0.8rlvalv.mongodb.net/bankteller?retryWrites=true&w=majority";
 
 mongoose
   .connect(MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then((d) => {
+  .then(() => {
     console.log("connected to DB");
   });
 
 //connectToDB();
+
+app.use(cookieParser());
 
 app.use(express.json());
 
@@ -52,7 +60,5 @@ app.use("/teller", tellerRoutes);
 app.use("/transaction", transactionRoute);
 
 app.listen(1997, () => {
-  console.log("Server is listening");
+  console.log(`Server is listening on ${PORT}`);
 });
-
-//test jwt branch

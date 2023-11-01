@@ -1,16 +1,15 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 
 const TellerSchema = mongoose.Schema(
   {
     username: {
       type: String,
       required: [true, "username required"],
-      unique: true,
     },
     staffId: {
       type: String,
       required: [true, "staff ID required"],
-      unique: true,
     },
     branch: {
       type: String,
@@ -19,7 +18,6 @@ const TellerSchema = mongoose.Schema(
     password: {
       type: String,
       required: true,
-      minLength: [6, "Must be at least 6 characters"],
     },
     role: {
       type: String,
@@ -29,6 +27,10 @@ const TellerSchema = mongoose.Schema(
   },
   { timestamps: true }
 );
+
+TellerSchema.pre("save", async function () {
+  this.password = await bcrypt.hash(this.password, 12);
+});
 
 const Teller = mongoose.model("teller", TellerSchema);
 module.exports = Teller;

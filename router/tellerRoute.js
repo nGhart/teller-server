@@ -6,8 +6,10 @@ const {
   updateTeller,
   changePassword,
 } = require("../controllers/tellerController");
+const { verifyUser } = require("../middlewares/requireAuth");
 
-router.post("/", addTeller);
+router.post("/", verifyUser);
+router.post("/signup", addTeller);
 router.post("/login", login);
 router.post("/delete", deleteTeller);
 router.patch("/update", updateTeller);
